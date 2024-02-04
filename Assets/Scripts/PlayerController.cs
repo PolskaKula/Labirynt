@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController characterController; 
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float sprint = 1f;
     private Vector3 velocity;
 
     private bool groundedPlayer;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerMove();
+        SprintManager();
+        IntoTheVoid();
     }
 
     void PlayerMove() {
@@ -32,7 +35,7 @@ public class PlayerController : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * y;
-        characterController.Move(move * speed * Time.deltaTime);
+        characterController.Move(move * speed * Time.deltaTime * sprint);
 
         if (groundedPlayer) {
             if (velocity.y < 0) {
@@ -63,5 +66,22 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += -9.81f * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    void SprintManager()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            sprint = 2f;
+        }
+        else
+        {
+            sprint = 1f;
+        }
+    }
+
+    void IntoTheVoid()
+    {
+        if (transform.position.y < -10f) transform.position = new Vector3(0f, 3f, 0f);
     }
 }
