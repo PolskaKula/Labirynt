@@ -84,4 +84,10 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < -10f) transform.position = new Vector3(0f, 3f, 0f);
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "PickUp")
+            hit.gameObject.GetComponent<Pickup>().PickedUp();
+    }
 }
