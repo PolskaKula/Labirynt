@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Clock : Pickup
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] int timeToAdd = 10;
+    [SerializeField] bool time;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        Rotation();
+    }
+
+    public override void PickedUp()
+    {
+        int cos = -1;
+        if (time) cos = 1;
+        GameManager.gameManager.AddTime(cos * timeToAdd);
+        base.PickedUp();
     }
 }

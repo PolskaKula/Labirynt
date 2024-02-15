@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public bool endGame = false;
     public bool win;
+
+    public int greenKeys = 0;
+    public int redKeys = 0;
+    public int blueKeys = 0;
+
     public int coins;
 
     void Start()
@@ -36,12 +41,27 @@ public class GameManager : MonoBehaviour
         isPaused = false;
     }
 
+    public void AddKey(KeyColor color)
+    {
+        if (color == KeyColor.Red)
+            redKeys++;
+        else if (color == KeyColor.Blue)
+            blueKeys++;
+        else if (color == KeyColor.Green)
+            greenKeys++;
+    }
+
     public void PauseCheck()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (!isPaused) GamePause(); else GameResume();
         }
+    }
+
+    public void AddTime(int time)
+    {
+        TimeToEnd += time;
     }
 
     void EndGame()
