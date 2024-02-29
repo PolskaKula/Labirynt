@@ -24,12 +24,19 @@ public class Portol : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        Teleportation();
+    }
+
     private void Teleportation()
     {
         if (isOverlapping)
         {
             Vector3 portalToPlayer = Player.position - transform.position;
             float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
+            //Debug.Log(dotProduct);
+            Debug.Log("Nice");
 
             if (dotProduct > 0)
             {
@@ -39,6 +46,8 @@ public class Portol : MonoBehaviour
 
                 Vector3 positionoffset = Quaternion.Euler(0f, dotProduct, 0f) * portalToPlayer;
                 Player.position = positionoffset + Reciever.position;
+
+                isOverlapping = false;
             }
         }
     }

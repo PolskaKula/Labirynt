@@ -20,5 +20,16 @@ public class Porcial : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         portol = portolKolajder.GetComponent<Portol>();
+        portol.Player = player.transform;
+        portol.Reciever = jinyPortol.portolKolajder;
+
+        renderSurfaz.GetComponent<Renderer>().material = Instantiate(PortolMatsy);
+        if (miCamera.targetTexture != null) miCamera.targetTexture.Release();
+        miCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+    }
+
+    private void Start()
+    {
+        renderSurfaz.GetComponent<Renderer>().material.mainTexture = jinyPortol.GetComponent<Porcial>().miCamera.targetTexture;
     }
 }
